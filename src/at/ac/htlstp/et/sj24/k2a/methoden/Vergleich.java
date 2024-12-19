@@ -1,5 +1,10 @@
 package at.ac.htlstp.et.sj24.k2a.methoden;
 
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class Vergleich {
 
     /**
@@ -51,14 +56,38 @@ public class Vergleich {
         }
     }
 
-    public static void main(String[] args) {
+    public static void testeEqualsKomplett(double x, double y, double tol, boolean absolut, boolean korrekt) {
         boolean r;
-        testeEquals(3,4,0.1,false);
-        testeEquals(3,3.000001,0.1,false);
+        r = equals(x,y,tol,absolut);
+        if (r!=korrekt) {
+            System.out.println("Test falsch bei x="+x+" y="+y+" tol="+tol+" absolut="+absolut);
+        }
+    }
+
+
+    /*public static void main(String[] args) {
+        boolean r;
+        /*testeEquals(3,4,0.1,false);
+        testeEquals(3,3.000001,0.1,false);*/
         /*r = equals(3,4,0.1,false);
         System.out.println("3 mit 4 und 0.1 Prozent liefert:"+r);
         r = equals(3,3.000001,0.1,false);
         System.out.println("3 mit 3.000001 und 0.1 Prozent liefert:"+r);*/
+        /*testeEqualsKomplett(3,4,0.1,false,false);
+        testeEqualsKomplett(3,3.000001,0.1,false,true);
+        testeEqualsKomplett(5,-5,0.1,true,false);
+        System.out.println("Alle Tests fertig!");
+    }*/
+
+    @Test
+    public void testMethode() {
+        assertFalse(equals(3,4,0.1,false));
+        assertTrue(equals(3,3.000001,0.1,false));
+        assertFalse(equals(5,-5,0.1,true));
+    }
+
+    @Test
+    public void testMethode2() {
 
     }
 
