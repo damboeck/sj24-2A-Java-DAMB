@@ -35,7 +35,7 @@ public class Adresse {
 
     @Override
     public String toString() {
-        return vorname+" "+nachname+","+wohnort;
+        return vorname+" "+nachname+","+wohnort+" , alter="+alter+" , grösse="+groesse+" , gewicht="+gewicht;
     }
 
     public static Adresse fromCsvLine(String line) {
@@ -44,10 +44,18 @@ public class Adresse {
         try {
             a.vorname   = cols[0];
             a.nachname  = cols[1];
-            a.alter     = Integer.parseInt(cols[2]);
+            try {
+                a.alter = Integer.parseInt(cols[2]);
+            } catch (NumberFormatException e) {
+                if (cols[2].matches("[0-9]+Jahre")) {
+                    a.alter = Integer.parseInt(cols[2].substring(0,cols[2].length()-5));
+                }
+            }
             a.wohnort   = cols[3];
-            a.groesse   = Double.parseDouble(cols[4]);
-            a.gewicht   = Double.parseDouble(cols[5]);
+            try {
+                a.groesse = Double.parseDouble(cols[4].replaceAll(",","."));
+            } catch (NumberFormatException e) {}
+            a.gewicht   = Double.parseDouble(cols[5].replaceAll(",","."));
         } catch (Exception ex) {}
         return a;
     }
