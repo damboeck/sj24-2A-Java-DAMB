@@ -8,6 +8,8 @@ import java.util.Vector;
 
 public class AdresslisteObjekt {
 
+    public static final String targetFile = "data/out.csv";
+
     public static void main(String[] args) throws IOException {
         List<String> data = Files.readAllLines(Paths.get(Adressliste.dateiname));
         Vector<Adresse> adresses = new Vector<>();
@@ -23,5 +25,7 @@ public class AdresslisteObjekt {
         for (Adresse adresse : adresses) {
             System.out.println(adresse);
         }
+        // Datei speichern
+        Adresse.saveCsv(adresses,targetFile);
     }
 }

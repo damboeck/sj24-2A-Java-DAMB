@@ -1,5 +1,11 @@
 package at.ac.htlstp.et.sj24.k2a.dateien;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Klasse in der die Adressen meiner Adressdatei gespeichert werden
  */
@@ -58,6 +64,26 @@ public class Adresse {
             a.gewicht   = Double.parseDouble(cols[5].replaceAll(",","."));
         } catch (Exception ex) {}
         return a;
+    }
+
+    public String toCsvLine() {
+        String result = vorname+";"+nachname+";";
+        result += alter+";";
+        result += wohnort+";";
+        result += (groesse+"").replaceAll("\\.",",")+";";
+        result += (gewicht+"").replaceAll("\\.",",");
+        return result;
+    }
+
+    public static void saveCsv(List<Adresse> adresses, String targetFile) throws IOException {
+        List<String> data = new ArrayList<>();
+        data.add("Vorname;Name;Alter;Wohnort;Größe in cm;Gewicht in kg");
+        // TODO CSV erzeugen
+        for (Adresse a: adresses) {
+            String line = a.toCsvLine();
+            data.add(line);
+        }
+        Files.write(Paths.get(targetFile), data);
     }
 
 
