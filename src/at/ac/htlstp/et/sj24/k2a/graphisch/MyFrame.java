@@ -6,7 +6,7 @@ import java.awt.event.*;
 /**
  * Basisklasse für eine Fenster in der AWT
  */
-public class MyFrame
+public abstract class MyFrame
         extends Frame
         implements WindowListener,
                    ComponentListener,
@@ -25,6 +25,9 @@ public class MyFrame
         addMouseMotionListener(this);
         addMouseWheelListener(this);
     }
+
+    @Override
+    public abstract void paint(Graphics g);
 
     @Override
     public void windowClosing(WindowEvent e) {
@@ -63,18 +66,14 @@ public class MyFrame
     @Override public void keyTyped(KeyEvent e) {
 
     }
-    @Override public void keyPressed(KeyEvent e) {
-
-    }
+    @Override public abstract void keyPressed(KeyEvent e);
     @Override public void keyReleased(KeyEvent e) {
 
     }
     @Override public void mouseClicked(MouseEvent e) {
 
     }
-    @Override public void mousePressed(MouseEvent e) {
-
-    }
+    @Override public abstract void mousePressed(MouseEvent e);
     @Override public void mouseReleased(MouseEvent e) {
 
     }

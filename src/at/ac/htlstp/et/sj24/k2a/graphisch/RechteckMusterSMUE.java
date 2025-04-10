@@ -2,6 +2,7 @@ package at.ac.htlstp.et.sj24.k2a.graphisch;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 public class RechteckMusterSMUE extends MyFrame {
 
@@ -52,6 +53,11 @@ public class RechteckMusterSMUE extends MyFrame {
             default : doRepaint = false;
         }
         if (doRepaint) repaint();
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
     }
 
 }
