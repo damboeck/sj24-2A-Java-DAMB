@@ -14,6 +14,9 @@ public class Paint extends MyFrame {
     /** Alle Zeichenobjekte die gezeichnet wurden */
     private Vector<Paintable> paintables = new Vector<>();
 
+    /** aktuelles Zeichenobjekt */
+    private Paintable current;
+
     public static void main(String[] args) {
         Paint frame = new Paint("Paint", 800, 600);
         frame.setVisible(true);
@@ -39,18 +42,30 @@ public class Paint extends MyFrame {
     public void mousePressed(MouseEvent e) {
         switch (drawMode) {
             case NEW:
-                paintables.add(new Linie(new Vect2D(e.getX(),e.getY()),Color.red,1));
+                current = new Rechteck(new Vect2D(e.getX(),e.getY()),Color.red,1);
+                paintables.add(current);
                 repaint();
                 drawMode = DrawMode.DRAW;
                 break;
             case NORMAL:
                 break;
             case DRAW:
-                Paintable last = paintables.get(paintables.size()-1);
-                if (last instanceof Zweipunkt) {
-                    ((Zweipunkt)last).p2 = new Vect2D(e.getX(),e.getY());
+                if (current instanceof Zweipunkt) {
+                    ((Zweipunkt)current).p2 = new Vect2D(e.getX(),e.getY());
+                    current=null;
                     repaint();
                     drawMode = DrawMode.NEW;
+                }
+        }
+    }
+
+    @Override public void mouseMoved(MouseEvent e) {
+        switch(drawMode) {
+            case NEW: case NORMAL: default: break;
+            case DRAW:
+                if (current instanceof Zweipunkt) {
+                    ((Zweipunkt)current).p2 = new Vect2D(e.getX(),e.getY());
+                    repaint();
                 }
         }
     }
